@@ -1,30 +1,39 @@
 import styled from 'styled-components'
-import theme from '../../global/theme'
 
-export const FooterContainer = styled.footer`
+import { colors } from '../../styles'
+
+export const FooterContainer = styled.header`
+  overflow-y: hidden;
+  background-color: ${colors.orange};
+  margin-top: 120px;
   width: 100%;
-  padding: 40px 0;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  background: ${theme.Colors.primary};
-`
-
-export const SocialIcons = styled.div`
-  display: flex;
-  gap: 8px;
-  margin: 32px auto 80px;
+  height: 298px;
+  text-align: center;
 
   img {
+    margin-top: 40px;
+    width: 125px;
+    height: 56px;
+  }
+`
+export const Footerlinks = styled.ul`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  img {
+    margin-top: 40px;
     width: 24px;
     height: 24px;
   }
 `
-
-export const Text = styled.p`
-  color: ${theme.Colors.text};
-  font-size: ${theme.fontSizes.body};
-  text-align: center;
+export const Footerlink = styled.li`
+  margin-right: 8px;
+  cursor: pointer;
+`
+export const FooterText = styled.p`
+  font-size: 10px;
+  font-style: normal;
   font-weight: 400;
-  line-height: normal;
+  line-height: 12px;
+  margin-top: 80px;
 `

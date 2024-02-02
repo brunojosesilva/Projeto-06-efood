@@ -1,47 +1,25 @@
-import { ButtonContainer, ButtonContainerLink } from './styles'
+import { ButtonContainer, ButtonLink } from './styles'
 
-type ButtonProps = {
-  kind: 'button' | 'link'
-  displayMode?: 'fullWidth' | 'inlineBlock'
-  themeMode: 'primary' | 'second'
-  placeholder: string
-  to?: string
+export type Props = {
+  type: 'button' | 'link'
+  title: string
+  to: string
   onClick?: () => void
+  children: JSX.Element
+  variant?: 'primary' | 'secundary'
 }
-
-const Button = ({
-  kind,
-  placeholder,
-  displayMode = 'fullWidth',
-  themeMode = 'primary',
-  to,
-  onClick
-}: ButtonProps) => {
-  if (kind === 'link') {
+const Button = ({ type, title, to, onClick, children }: Props) => {
+  if (type === 'button') {
     return (
-      <>
-        <ButtonContainerLink
-          displayMode={displayMode}
-          themeMode={themeMode}
-          to={to as string}
-        >
-          {placeholder}
-        </ButtonContainerLink>
-      </>
+      <ButtonContainer to="" type="button" title={title} onClick={onClick}>
+        {children}
+      </ButtonContainer>
     )
   }
-
   return (
-    <>
-      <ButtonContainer
-        onClick={onClick}
-        displayMode={displayMode}
-        themeMode={themeMode}
-      >
-        {placeholder}
-      </ButtonContainer>
-    </>
+    <ButtonLink to={to} title={title}>
+      {children}
+    </ButtonLink>
   )
 }
-
 export default Button

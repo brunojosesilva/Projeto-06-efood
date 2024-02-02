@@ -1,15 +1,8 @@
-import { TagContainer, TagTitle } from './styles'
+import { TagContainer } from './styles'
 
-type TagProps = {
-  placeholder?: string
+export type Props = {
+  children: string
 }
-
-const Tag = ({ placeholder }: TagProps) => {
-  return (
-    <TagContainer>
-      <TagTitle>{placeholder}</TagTitle>
-    </TagContainer>
-  )
-}
+const Tag = ({ children }: Props) => <TagContainer>{children}</TagContainer>
 
 export default Tag

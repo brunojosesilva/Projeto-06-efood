@@ -1,59 +1,61 @@
-import Button from '../Button'
-import { formatPrice } from '../../utils'
+import React from 'react'
 import {
+  CloseButton,
   ModalContainer,
-  ContainerImage,
-  Title,
-  Text,
-  ContainerText
+  ModalContent,
+  ModalImage,
+  ModalOverlay
 } from './styles'
-import { MdClose } from 'react-icons/md'
-import { Container } from '../../global/globalStyle'
+import Button from '../Button'
+import closeImg from '../../assets/images/close.png'
+import { MenuItem } from '../../pages/Home'
+import { formatPrice } from '../Product'
 
 type ModalProps = {
-  title: string
-  cover: string
-  description: string
-  potion: string
-  price: number
-  closeModal: () => void
+  showModal: boolean
+  onClose: () => void
+  restaurant: MenuItem
+  addCart: () => void
 }
 
-const Modal = ({
-  cover,
-  title,
-  description,
-  potion,
-  price,
-  closeModal
-}: ModalProps) => {
-  function renderTextPotion(potion: string) {
-    if (potion === '1 pessoa') {
-      return <Text>Serve: {potion}</Text>
-    }
-    return <Text>Serve: de {potion}</Text>
-  }
-
+const Modal: React.FC<ModalProps> = ({
+  showModal,
+  onClose,
+  restaurant,
+  addCart
+}) => {
   return (
-    <Container>
+    <ModalOverlay
+      className={showModal ? 'visible' : ''}
+      onClick={(e) => {
+        if (e.target === e.currentTarget) {
+          onClose()
+        }
+      }}
+    >
       <ModalContainer>
-        <ContainerImage>
-          <img src={cover} alt={title} />
-        </ContainerImage>
-        <ContainerText>
-          <Title>{title}</Title>
-          <Text>{description}</Text>
-          {renderTextPotion(potion)}
+        <ModalImage src={restaurant.foto} />
+        <ModalContent>
+          <h2>{restaurant.nome}</h2>
+          <p>{restaurant.descricao}</p>
+          <span>{restaurant.porcao}</span>
           <Button
-            kind="button"
-            displayMode="inlineBlock"
-            themeMode="second"
-            placeholder={`Adicionar ao carrinho - ${formatPrice(price)}`}
-          />
-        </ContainerText>
-        <MdClose onClick={closeModal} />
+            type={'button'}
+            title={''}
+            to={'/teste'}
+            onClick={() => {
+              addCart()
+              onClose()
+            }}
+          >
+            <>Adicionar ao carrinho - {formatPrice(restaurant.preco)}</>
+          </Button>
+        </ModalContent>
+        <CloseButton>
+          <img src={closeImg} alt="Close" onClick={onClose} />
+        </CloseButton>
       </ModalContainer>
-    </Container>
+    </ModalOverlay>
   )
 }
 

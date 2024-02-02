@@ -1,22 +1,28 @@
-import Logo from '../Logo'
-import { SocialLinks } from '../../utils/list'
-
-import { FooterContainer, SocialIcons, Text } from './styles'
-import LogoImage from '../../assets/logo.png'
+import { FooterContainer, FooterText, Footerlink, Footerlinks } from './styles'
+import Logo from '../../assets/images/logo.svg'
+import insta from '../../assets/images/insta.svg'
+import face from '../../assets/images/face.svg'
+import twitter from '../../assets/images/twitter.svg'
 
 const Footer = () => (
   <FooterContainer>
-    <Logo kind="link" cover={LogoImage} title="Logo eFood" to="/" />
-    <SocialIcons>
-      {SocialLinks.map((item) => (
-        <img src={item.icon} alt={item.title} key={item.id} />
-      ))}
-    </SocialIcons>
-    <Text>
+    <img src={Logo} alt="logo" />
+    <Footerlinks>
+      <Footerlink>
+        <img src={insta} alt="logo" />
+      </Footerlink>
+      <Footerlink>
+        <img src={face} alt="logo" />
+      </Footerlink>
+      <Footerlink>
+        <img src={twitter} alt="logo" />
+      </Footerlink>
+    </Footerlinks>
+    <FooterText>
       A efood é uma plataforma para divulgação de estabelecimentos, a
-      responsabilidade pela entrega, qualidade dos produtos é toda do
+      responsabilidade pela entrega, qualidade <br /> dos produtos é toda do
       estabelecimento contratado.
-    </Text>
+    </FooterText>
   </FooterContainer>
 )
 

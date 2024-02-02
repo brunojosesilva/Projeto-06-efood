@@ -1,95 +1,66 @@
-import Button from '../Button'
 import Tag from '../Tag'
 import {
-  Title,
-  Text,
-  Icon,
-  CardHeader,
-  CardContent,
-  CardImage,
-  CardContainer,
-  ContainerTags,
-  Cover
+  InfoContainer,
+  Card,
+  TitleContainer,
+  Description,
+  Info,
+  Rating,
+  Score,
+  Title
 } from './styles'
+import star from '../../assets/images/star.svg'
+import { ButtonLink } from '../Button/styles'
+import { Restaurants } from '../../pages/Home'
 
-type CardProps = {
-  card: 'primary' | 'second'
-  kindButton: 'button' | 'link'
-  title: string
-  cover: string
-  description: string
-  nameButton: string
-  iconName?: string
-  rating?: string
-  tagType?: string | undefined
-  tagHighlight?: boolean | undefined
-  to?: string
-  handleClick?: () => void
+import { getDescription } from '../Product'
+
+type Props = {
+  titulo: string
+  destacado: boolean
+  tipo: string
+  avaliacao: number
+  descricao: string
+  capa: string
+  Restaurants: Restaurants
 }
 
-const Card = ({
-  card = 'primary',
-  kindButton = 'link',
-  title,
-  cover,
-  description,
-  iconName,
-  rating,
-  nameButton,
-  tagType,
-  tagHighlight,
-  to,
-  handleClick
-}: CardProps) => {
-  function renderTypeButton(kind: string) {
-    return (
-      <Button
-        kind={kindButton}
-        placeholder={nameButton}
-        onClick={kind === 'button' ? handleClick : undefined}
-        to={kind === 'link' ? `${to}` : undefined}
-        displayMode={card === 'primary' ? 'inlineBlock' : 'fullWidth'}
-        themeMode={card}
-      />
-    )
+const renderDestaqueTag = (destacado: boolean | undefined) => {
+  if (destacado === true) {
+    return <Tag>Destaques da Semana</Tag>
   }
-
-  function renderTags(type: string, highlight: boolean | undefined) {
-    if (type && highlight === true) {
-      return (
-        <ContainerTags>
-          <Tag placeholder="Destaque da semana" />
-          <Tag placeholder={type} />
-        </ContainerTags>
-      )
-    }
-
-    return (
-      <ContainerTags>
-        <Tag placeholder={type} />
-      </ContainerTags>
-    )
-  }
-
-  return (
-    <CardContainer>
-      <CardImage card={card}>
-        <Cover src={cover} alt={cover} />
-      </CardImage>
-      <CardContent card={card}>
-        <CardHeader>
-          <Title card={card}>{title}</Title>
-          <CardHeader>
-            {rating && <Title card={card}>{rating}</Title>}
-            {iconName && <Icon src={iconName} alt={iconName} />}
-          </CardHeader>
-        </CardHeader>
-        <Text card={card}>{description}</Text>
-        {renderTypeButton(kindButton)}
-      </CardContent>
-      {tagType && renderTags(tagType, tagHighlight)}
-    </CardContainer>
-  )
+  return null
 }
 
-export default Card
+const CardHome = ({
+  titulo,
+  destacado,
+  tipo,
+  avaliacao,
+  descricao,
+  capa,
+  Restaurants
+}: Props) => (
+  <Card>
+    <img src={capa} alt={titulo} />
+    <Info>
+      {renderDestaqueTag(destacado)}
+      <Tag>{tipo}</Tag>
+    </Info>
+    <InfoContainer>
+      <TitleContainer>
+        <Title>{titulo}</Title>
+        <Rating>
+          <Score>{avaliacao}</Score>
+          <img src={star} alt="Estrela Score" />
+        </Rating>
+      </TitleContainer>
+      <Description>{getDescription(descricao)}</Description>
+      <ButtonLink to={`/menu/${Restaurants.id}`} title={titulo}>
+        Saiba mais
+      </ButtonLink>
+    </InfoContainer>
+  </Card>
+)
+
+export default CardHome

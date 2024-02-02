@@ -1,28 +1,17 @@
-export function formatPrice(price = 0) {
+import { MenuItem } from '../pages/Home'
+
+export const formatPrice = (amount = 0) => {
   return new Intl.NumberFormat('pt-BR', {
     style: 'currency',
     currency: 'BRL'
-  }).format(price)
+  }).format(amount)
 }
 
-export function getPrices(price: number | undefined | null) {
-  if (price !== null && price !== undefined) {
-    return formatPrice(price)
-  }
-
-  return 0
-}
-
-export function getDescription(description: string) {
-  if (description.length > 250) {
-    return description.slice(0, 247) + '...'
-  }
-  return description
-}
-
-export function getDescriptionProduct(description: string) {
-  if (description.length > 255) {
-    return description.slice(0, 252) + '...'
-  }
-  return description
+export const getTotalPrice = (items: MenuItem[]) => {
+  return items.reduce((accumulator, currentItem) => {
+    if (currentItem.preco) {
+      return (accumulator += currentItem.preco)
+    }
+    return 0
+  }, 0)
 }
